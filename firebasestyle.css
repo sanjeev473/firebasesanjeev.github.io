@@ -1,0 +1,22 @@
+#myFirebaeTable table,
+thead,
+tbody,
+tr,
+th,
+td {
+  border: 5px ridge orange !important;
+  text-align: center;
+}
+
+.editUser,
+.deleteUser {
+  cursor: pointer;
+  background-color: rgb(231, 227, 227);
+  border-radius: 50%;
+  padding: 0.5rem;
+  opacity: 0.5;
+}
+.deleteUser:hover {
+  background-color: rgb(255, 200, 200);
+  opacity: 1;
+}

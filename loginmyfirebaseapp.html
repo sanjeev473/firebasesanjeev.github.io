@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="firebasestyle.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+    integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-12">
+        <h2 class="text-center text-primary">Crud Application Firebase</h2>
+        <hr class="pt-2 bg-primary w-25">
+      </div>
+    </div>
+    <div class="row align-items-center justify-content-center" style="height: 80vh;">
+      <div class="col-sm-6 bg-light rounded text-center">
+        <div class="p-5">
+          <h2 class="text-center mb-5">Login</h2>
+          <form id="login-user">
+            <div class="form-group">
+              <input type="text" class="text form-control email" name="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <input type="text" class="text form-control password" name="password" placeholder="Password">
+            </div>
+            <div class="form-group">
+              <input type="submit" class="btn btn-block btn-success">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- Popper JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-functions.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
+
+
+  <script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+      apiKey: "AIzaSyC4RWbYmJCS-jEBY0zX3DXjxN1CDPQ3hU4",
+      authDomain: "mywebapplication-d7e63.firebaseapp.com",
+      databaseURL: "https://mywebapplication-d7e63.firebaseio.com",
+      projectId: "mywebapplication-d7e63",
+      storageBucket: "mywebapplication-d7e63.appspot.com",
+      messagingSenderId: "327012128155",
+      appId: "1:327012128155:web:b4e90f0af015939f5cbd3e",
+      measurementId: "G-7G3YN1RTFL"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    var db = firebase.firestore();
+
+    $('#login-user').on('submit', function (e) {
+      e.preventDefault();
+      let email = $('.email').val();
+      let password = $('.password').val();
+      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+        .then(function () {
+          // Existing and future Auth states are now persisted in the current
+          // session only. Closing the window would clear any existing state even
+          // if a user forgets to sign out.
+          // ...
+          // New sign-in will be persisted with session persistence.
+          return firebase.auth().signInWithEmailAndPassword(email, password).then(res => window.location.href = "firebasemy.html")
+            .catch(function (error) {
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              if (errorCode === 'auth/wrong-password') {
+                alert('Wrong password.');
+              } else {
+                alert(errorMessage);
+              }
+              console.log(error);
+            });
+        })
+        .catch(function (error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+        });
+      // firebase.auth().signInWithEmailAndPassword(email, password)
+      //   .then(res => window.location.href = "firebasemy.html")
+      //   .catch(function (error) {
+      //     var errorCode = error.code;
+      //     var errorMessage = error.message;
+      //     if (errorCode === 'auth/wrong-password') {
+      //       alert('Wrong password.');
+      //     } else {
+      //       alert(errorMessage);
+      //     }
+      //     console.log(error);
+      //   });
+    });
+  </script>
+</body>
+
+</html>
